@@ -26,5 +26,5 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 - Guarda quien la activo y a que hora
 
 #### Tiempo (Mateo)
-- Hora andando *Done*
+- Hora andando ✔
 
