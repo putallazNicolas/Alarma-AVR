@@ -32,6 +32,7 @@ int DHT(void) // Retorna 0 si hubo un error, retorna 1 si fue realizado correcta
   temperatura_ent = leerDHT();
   temperatura_dec = leerDHT();
   checksum = leerDHT();
+  // Falta chequear la sum
 }
 
 int leerDHT(void)
