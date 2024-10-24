@@ -40,6 +40,10 @@ ISR (TIMER1_COMPA_vect)
     {
       time.min = 0;
       time.hrs++;
+      if (time.hrs == 24)
+      {
+        time.hrs = 0;
+      }
     }
   }
 }
