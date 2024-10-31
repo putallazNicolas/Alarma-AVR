@@ -8,7 +8,7 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 ### Tareas a dividir
 
 #### Protocolos de comunicación
-- [ ] LCD (Matuto)
+- [ ] LCD (Nico)
 - [ ] DHT11 (Nico)
 - [ ] Keypad (Matuto)
 - [ ] Buzzer (Nico) piupiupiupiu
