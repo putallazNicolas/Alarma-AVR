@@ -2,7 +2,7 @@
 TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digital lII (2024)
 
 ### Conexiones
-#### LCD y Registro de Desplazamientos
+#### LCD y Registro de Desplazamientos (74HC595)
 - LCD Con Arduino están en el código
 - D0-D7 LCD => QA-QH Registro
 - RCLK Registro => SRCLK Registro => "Clk" Arduino
