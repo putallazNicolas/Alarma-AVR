@@ -1,6 +1,17 @@
 # Alarma AVR
 TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digital lII (2024)
 
+### Conexiones
+#### LCD y Registro de Desplazamientos
+- LCD Con Arduino están en el código
+- D0-D7 LCD => QA-QH Registro
+- RCLK Registro => SRCLK Registro => "Clk" Arduino
+- OE Registro => GND
+- SRCLR Registro => VCC
+- SER Registro => "Data" Arduino
+- RW, VDD => VCC
+- V0 => Resistencia 400R => GND Y Resistencia 1K VCC
+
 ### Objetivo 
 
 Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
@@ -8,7 +19,7 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 ### Tareas a dividir
 
 #### Protocolos de comunicación
-- [ ] LCD (Nico)
+- [x] LCD (Nico)
 - [ ] DHT11 (Nico)
 - [ ] Keypad (Matuto)
 - [ ] Buzzer (Nico) piupiupiupiu
