@@ -10,7 +10,7 @@ TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digit
 - SRCLR Registro => VCC
 - SER Registro => "Data" Arduino
 - RW, VDD => VCC
-- V0 => Resistencia 400R => GND Y Resistencia 1K VCC
+- V0 => Resistencia 400R => GND Y Resistencia 1K VCC o una caída de 1,6V en este pin
 
 ### Objetivo 
 
