@@ -1,17 +1,6 @@
 # Alarma AVR
 TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digital lII (2024)
 
-### Conexiones
-#### LCD y Registro de Desplazamientos (74HC595)
-- LCD Con Arduino están en el código
-- D0-D7 LCD => QA-QH Registro
-- RCLK Registro => SRCLK Registro => "Clk" Arduino
-- OE Registro => GND
-- SRCLR Registro => VCC
-- SER Registro => "Data" Arduino
-- RW, VDD => VCC
-- V0 => Resistencia 400R => GND Y Resistencia 1K VCC o una caída de 1,6V en este pin, cuanto mas cerca de gnd mas se ilumina
-
 ### Objetivo 
 
 Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
