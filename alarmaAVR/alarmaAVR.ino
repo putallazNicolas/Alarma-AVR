@@ -13,7 +13,7 @@
 #define sensorPerimetral PB4
 #define sensorExterno PB5
 
-#define alarma 
+#define alarma PC4
 
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
