@@ -10,7 +10,7 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 #### Protocolos de comunicación
 - [x] LCD (Nico)
 - [ ] DHT11 (Nico)
-- [ ] Keypad (Matuto)
+- [x] Keypad (Matuto)
 - [ ] Buzzer (Nico) piupiupiupiu
 - [ ] Sensor Perimetral (Botones) (Mateo)
 
