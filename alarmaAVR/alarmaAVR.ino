@@ -30,11 +30,14 @@ byte colPins[COLS] = {4, 5, 6, 7}; //connect to the column pinouts of the keypad
 //initialize an instance of class NewKeypad
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
+char key; // NO BORRAR AL CAMBIAR A AVR
+
 // Una contrasena por usuario
 char *passwords[3] = {"1234", "1234", "1234"};
 
 // Configuraciones y estados de alarma
-uint8_t state = 0; //0 Desactivada, 1 Perimetral, 2 Total
+uint8_t mode = 0; //0 Desactivada, 1 Perimetral, 2 Total
+uint8_t state = 0; //0 Sonido apagado, 1 Sonando
 
 void setup()
 {
@@ -45,7 +48,7 @@ void setup()
   
 void loop()
 {
-  char key = customKeypad.getKey();
+  key = customKeypad.getKey();
   
   if (key)
   {
