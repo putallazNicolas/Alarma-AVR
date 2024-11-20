@@ -25,10 +25,16 @@ char hexaKeys[ROWS][COLS] = {
   {'*','0','#','D'}
 };
 byte rowPins[ROWS] = {A0, A1, A2, A3}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
+byte colPins[COLS] = {4, 5, 6, 7}; //connect to the column pinouts of the keypad
 
 //initialize an instance of class NewKeypad
-Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
+
+// Una contrasena por usuario
+char *passwords[3] = {"1234", "1234", "1234"};
+
+// Configuraciones y estados de alarma
+uint8_t state = 0; //0 Desactivada, 1 Perimetral, 2 Total
 
 void setup()
 {
