@@ -49,13 +49,17 @@ void setup()
 void loop()
 {
   key = customKeypad.getKey();
+  checkSensors();
   
   if (key)
   {
-    lcd_clear();
-    Serial.println(key);
-    lcd_write_char(key);
+    desactivarAlarma();
   }
+}
+
+int checkSensors()
+{
+  
 }
 
 void setupSensores()
@@ -63,30 +67,6 @@ void setupSensores()
   DDRB |= (1 << sensorPerimetral);
   DDRB |= (1 << sensorInterno);
 }
-
-/*
-#include "definiciones.h"
-#include <avr/io.h>
-#include <util/delay.h>
-#include <string.h>
-
-int main(void)
-{
-  lcd_init();
-  lcd_clear();
-  lcd_set_cursor(0, 0);
-  lcd_show_cursor(0, 0);
-  lcd_write("Gracias a tomi");
-  lcd_set_cursor(0,1);
-  lcd_write("por la libreria");
-  _delay_ms(2000);
-  lcd_clear();
-  while (1)
-  {
-
-  }
-}
-*/
 
 void lcd_enable_pulse()
 {
