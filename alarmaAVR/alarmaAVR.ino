@@ -11,7 +11,7 @@
 
 // Pines Sensores
 #define sensorPerimetral PB4
-#define sensorExterno PB5
+#define sensorInterno PB5
 
 #define alarma PC4
 
@@ -47,6 +47,12 @@ void loop()
     Serial.println(key);
     lcd_write_char(key);
   }
+}
+
+void setupSensores()
+{
+  DDRB |= (1 << sensorPerimetral);
+  DDRB |= (1 << sensorInterno);
 }
 
 /*
