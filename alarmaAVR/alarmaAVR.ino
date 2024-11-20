@@ -9,6 +9,12 @@
 #define rs PB2
 #define e PB3
 
+// Pines Sensores
+#define sensorPerimetral PB4
+#define sensorExterno PB5
+
+#define alarma 
+
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
 //define the cymbols on the buttons of the keypads
