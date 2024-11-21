@@ -1,5 +1,3 @@
-#include <Keypad.h>
-
 //Cosas del LCD
 #define F_CPU 8000000
 
@@ -18,21 +16,6 @@
 #define PASSWORD_LENGTH 4
 #define USERS 3
 
-const byte ROWS = 4; //four rows
-const byte COLS = 4; //four columns
-//define the cymbols on the buttons of the keypads
-char hexaKeys[ROWS][COLS] = {
-  {'1','2','3','A'},
-  {'4','5','6','B'},
-  {'7','8','9','C'},
-  {'*','0','#','D'}
-};
-byte rowPins[ROWS] = {A0, A1, A2, A3}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {4, 5, 6, 7}; //connect to the column pinouts of the keypad
-
-//initialize an instance of class NewKeypad
-Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
-
 char key; // NO BORRAR AL CAMBIAR A AVR
 
 // Una contrasena por usuario
@@ -45,19 +28,31 @@ uint8_t state = 0; //0 Sonido apagado, 1 Sonando
 uint8_t prevMode = 2; //0 Desactivada, 1 Perimetral, 2 Total
 uint8_t prevState = 0; //0 Sonido apagado, 1 Sonando
 
+struct hour
+{
+  int hrs;
+  int min;
+  int sec;
+};
+
+struct hour time = {0, 0, 0};
+
 void setup()
 {
+  tiempoDeclare();
+
   lcd_init();
   lcd_show_cursor(0, 0);
 
   setupSensors();
+  setupKeypad();
 
   updateScreen();
 }
   
 void loop()
 {
-  key = customKeypad.getKey();
+  key = checkKeypad();
 
   checkSensors();
   checkState();
@@ -177,7 +172,7 @@ void askPassword(int attempt)
   {
     return;
   }
-  
+
   lcd_clear();
   lcd_set_cursor(0, 0);
   lcd_write("Contrasenia:");
@@ -191,7 +186,7 @@ void askPassword(int attempt)
     char key;
     while (1)
     {
-      key = customKeypad.getKey();
+      key = checkKeypad();
       if (key)
       {
         break;
@@ -421,3 +416,105 @@ void lcd_init()
 	unsigned char LA[8] = {0x1F, 0x10, 0x10, 0x0, 0x1E, 0x9, 0x9, 0x1E};
 }
 
+//keypad.ino
+
+char prevKey = 'E';
+
+char keys[4][4] =
+{
+  { '1', '2', '3', 'A' },
+  { '4', '5', '6', 'B' },
+  { '7', '8', '9', 'C' },
+  { '#', '0', '*', 'D' }
+};
+
+char checkKeypad()
+{
+  for (int r = 0; r < 4; r++)
+  {
+    PORTC = ~(1 << r);
+    for (int c = 4; c < 8; c++)
+    {
+      if (!(PIND & (1 << c)))
+      {
+        char keyss = checkReps(r, c - 4);
+        return keyss;
+      }
+    }
+    PORTC = 0b000000;
+  }
+  return '\0';
+}
+
+void setupKeypad()
+{
+  DDRC = 0b001111;
+  DDRD = 0b00000000;
+  PORTC = 0b111111;
+  PORTD = 0b11110000;
+}
+
+char checkReps(int r, int c)
+{
+  int tiempoActual = time.sec;
+  if(keys[r][c] != prevKey) //La tecla presionada es distinta a la anterior (dejó de ser rebote)
+  {
+    prevKey = keys[r][c];
+    return keys[r][c];
+  }
+  else if(keys[r][c] == prevKey && tiempoActual != time.sec) //La tecla que fue antes presionada, después de un segundo sigue presionada (no es rebote)
+  {
+    prevKey = keys[r][c];
+    return keys[r][c];
+  }
+  else if(keys[r][c] == prevKey && tiempoActual == time.sec) //La tecla sigue presionada en el mismo segundo (es rebote)
+  {
+    prevKey == keys[r][c];
+    return '\0';
+  }
+}
+
+//Time.ino
+
+
+
+void tiempoDeclare()
+{
+  TCCR1B = (1 << WGM12) | (1 << CS12) | (1 << CS10);
+  TCCR1A = 0;
+  OCR1A = 15624; // Valor para interrumpir cada un segundo = 15624
+  TIMSK1 = (1 << OCIE1A);
+  sei();
+}
+
+void printTime()
+{
+  Serial.print(time.hrs);
+  Serial.print(":");
+  Serial.print(time.min);
+  Serial.print(":");
+  Serial.print(time.sec);
+  Serial.println();
+}
+
+ISR (TIMER1_COMPA_vect)
+{
+//  printTime();
+
+  time.sec++;
+
+  if (time.sec >= 60)
+  {
+    time.sec = 0;
+    time.min++;
+    if (time.min >= 60)
+    {
+      time.min = 0;
+      time.hrs++;
+      if (time.hrs == 24)
+      {
+        time.hrs = 0;
+      }
+    }
+  }
+}
