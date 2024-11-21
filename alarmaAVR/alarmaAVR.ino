@@ -115,15 +115,46 @@ uint8_t checkChanges()
 {
   if (state != prevState)
   {
+    prevState = state;
     return 1;
   }
   
   if (mode != prevMode)
   {
+    prevMode = mode;
     return 1;
   }
 
   return 0;
+}
+
+void updateScreen()
+{
+  lcd_clear();
+
+  if (mode == 0) // 0 Desactivada, 1 Perimetral, 2 Total
+  {
+    lcd_write("Desactivada");
+  }
+  else if (mode == 1)
+  {
+    lcd_write("Perimetral");
+  }
+  else if (mode == 2)
+  {
+    lcd_write("Armado Total");
+  }
+
+  lcd_set_cursor(0, 1);
+
+  if (state == 0) // 0 Sonido apagado, 1 Sonando
+  {
+    lcd_write("No hay intrusos");
+  }
+  else if (state == 1)
+  {
+    lcd_write("ALARMA ACTIVADA");
+  }
 }
 
 void deactivateAlarm()
