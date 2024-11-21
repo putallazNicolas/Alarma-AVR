@@ -7,6 +7,10 @@ TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digit
 
 Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 
+### Esquematico de conexión
+
+![esquematico](https://github.com/user-attachments/assets/c73fe07e-00ac-47fd-879e-30ee1953cfdb)
+
 ### Descripción de archivos
 
 #### Todos terminan en '.ino'
