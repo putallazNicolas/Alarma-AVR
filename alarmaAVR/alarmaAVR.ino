@@ -132,26 +132,11 @@ void configurePasswords()
   }
   lcd_show_cursor(0, 0);
 
-  if (key == '0')
+  if (key >= '0' && key <= '2')
   {
-    for (int i = 0; i < PASSWORD_LENGTH; i++)
-    {
-      passwords[0][i] = input[i];
-    }
-  }
-  if (key == '1')
-  {
-    for (int i = 0; i < PASSWORD_LENGTH; i++)
-    {
-      passwords[1][i] = input[i];
-    }
-  }
-  if (key == '2')
-  {
-    for (int i = 0; i < PASSWORD_LENGTH; i++)
-    {
-      passwords[2][i] = input[i];
-    }
+    int index = key - '0';  // Convierte '0', '1', '2' a 0, 1, 2
+    strncpy(passwords[index], input, PASSWORD_LENGTH);
+    passwords[index][PASSWORD_LENGTH - 1] = '\0';  // Asegura el terminador nulo
   }
 
   return;
