@@ -1,3 +1,5 @@
+char prevKey = 'E';
+
 char keys[4][4] =
 {
   { '1', '2', '3', 'A' },
@@ -15,7 +17,8 @@ char checkKeypad()
     {
       if (!(PIND & (1 << c)))
       {
-        return keys[r][c - 4];
+        char keyss = checkReps(r, c - 4);
+        return keyss;
       }
     }
     PORTB = 0b000000;
@@ -29,4 +32,24 @@ void setupKeypad()
   DDRD = 0b00000000;
   PORTB = 0b111111;
   PORTD = 0b11110000;
+}
+
+char checkReps(int r, int c)
+{
+  int tiempoActual = time.sec;
+  if(keys[r][c] != prevKey) //La tecla presionada es distinta a la anterior (dejó de ser rebote)
+  {
+    prevKey = keys[r][c];
+    return keys[r][c];
+  }
+  else if(keys[r][c] == prevKey && tiempoActual != time.sec) //La tecla que fue antes presionada, después de un segundo sigue presionada (no es rebote)
+  {
+    prevKey = keys[r][c];
+    return keys[r][c];
+  }
+  else if(keys[r][c] == prevKey && tiempoActual == time.sec) //La tecla sigue presionada en el mismo segundo (es rebote)
+  {
+    prevKey == keys[r][c];
+    return '\0';
+  }
 }
