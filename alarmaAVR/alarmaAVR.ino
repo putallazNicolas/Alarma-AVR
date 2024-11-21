@@ -15,6 +15,9 @@
 
 #define alarma PC4
 
+#define PASSWORD_LENGTH 4
+#define USERS 3
+
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
 //define the cymbols on the buttons of the keypads
@@ -33,35 +36,29 @@ Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS
 char key; // NO BORRAR AL CAMBIAR A AVR
 
 // Una contrasena por usuario
-char *passwords[3] = {"1234", "1234", "1234"};
+char *passwords[USERS] = {"1234", "1234", "1234"};
 
 // Configuraciones y estados de alarma
-uint8_t mode = 0; //0 Desactivada, 1 Perimetral, 2 Total
+uint8_t mode = 2; //0 Desactivada, 1 Perimetral, 2 Total
 uint8_t state = 0; //0 Sonido apagado, 1 Sonando
 
 void setup()
 {
-  Serial.begin(9600);
   lcd_init();
   lcd_show_cursor(0, 0);
+
+  setupSensors()
 }
   
 void loop()
 {
   key = customKeypad.getKey();
-  mode = 1;
   checkSensors();
   checkState();
-  lcd_clear();
-  lcd_write("Estado: ");
-  lcd_write_char(state + 48); // El +48 es por que al estar imprimiendo un numero el codigo ascii lo toma como char e imprime NULL si es 0, entonces le sumo 48 (0 en ascii)
-  lcd_set_cursor(0, 1);
-  lcd_write("Modo: ");
-  lcd_write_char(mode + 48);
   
   if (key)
   {
-    desactivarAlarma();
+    deactivateAlarm();
   }
 }
 
@@ -103,7 +100,7 @@ void checkState()
   }
 }
 
-void desactivarAlarma()
+void deactivateAlarm()
 {
   if (state == 0)
   {
@@ -111,11 +108,33 @@ void desactivarAlarma()
   }
   else
   {
-    state = 0;
+    askPassword();
   }
 }
 
-void setupSensores()
+void askPassword()
+{
+  lcd_set_cursor(0, 0);
+  lcd_write("Contrasenia:");
+  lcd_set_cursor(0, 1);
+  
+  char input[PASSWORD_LENGTH];
+
+  for (int i = 0; i < PASSWORD_LENGTH; i++)
+  {
+    lcd_show_cursor(1, 1);
+    char key;
+    while (!key)
+    {
+      key = customKeypad.getKey();
+    }
+    input[i] = key;
+  }
+
+
+}
+
+void setupSensors()
 {
   // Configurar como entradas
   DDRB &= ~(1 << sensorPerimetral);
