@@ -67,13 +67,54 @@ int main(void)
   
     if (key)
     {
-      deactivateAlarm();
-      if (key == 'a')
+      if (key > '0' && key < '9')
+      {
+        deactivateAlarm();
+      }
+      else if (key == 'A')
       {
         configureMode();
       }
     }
   }
+}
+
+void configureMode() //0 Desactivada, 1 Perimetral, 2 Total
+{
+  lcd_clear();
+  lcd_write("0:Off  2: Total");
+  lcd_set_cursor(0, 1);
+  lcd_write("1: Perimetral");
+
+  char key;
+  while (1)
+  {
+    key = checkKeypad();
+    if (key)
+    {
+      break;
+    }
+  }
+
+  if (key == '0' || key == '1' || key == '2')
+  {
+    askPassword();
+  }
+  
+  if (key == '0')
+  {
+    mode = 0;
+  }
+  else if (key = '1')
+  {
+    mode = 1;
+  }
+  else if (key = '2')
+  {
+    mode = 2;
+  }
+
+  return;
 }
 
 // sensors.ino
