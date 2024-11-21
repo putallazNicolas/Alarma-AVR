@@ -107,17 +107,15 @@ void configurePasswords()
     askPassword();
   }
 
-  key -= 48; // Trato al char como un int
-
   lcd_clear();
   lcd_write("Nueva Contrasena");
   lcd_set_cursor(0, 1);
 
   char input[PASSWORD_LENGTH];
+  lcd_show_cursor(1, 1);
 
   for (int i = 0; i < PASSWORD_LENGTH; i++)
   {
-    lcd_show_cursor(1, 1);
     char keyB;
     while (1)
     {
@@ -130,14 +128,31 @@ void configurePasswords()
     lcd_write_char(keyB);
     input[i] = keyB;
   }
-  lcd_show_cursor(0, 0);
 
-  if (key >= '0' && key <= '2')
+  Serial.print(passwords[2]);
+  Serial.print("\t");
+  Serial.print(key);
+  Serial.print("\t");
+  Serial.println(input);
+
+  if (key == '0')
   {
-    int index = key - '0';  // Convierte '0', '1', '2' a 0, 1, 2
-    strncpy(passwords[index], input, PASSWORD_LENGTH);
-    passwords[index][PASSWORD_LENGTH - 1] = '\0';  // Asegura el terminador nulo
+    strncpy(passwords[0], input, PASSWORD_LENGTH);
   }
+  if (key == '1')
+  {
+    strncpy(passwords[1], input, PASSWORD_LENGTH);
+  }
+  if (key == '2')
+  {
+    strncpy(passwords[2], input, PASSWORD_LENGTH);
+  }
+
+  Serial.print(passwords[2]);
+  Serial.print("\t");
+  Serial.print(key);
+  Serial.print("\t");
+  Serial.println(input);
 
   return;
 }
@@ -329,9 +344,10 @@ void askPassword()
 
   char input[PASSWORD_LENGTH];
 
+  lcd_show_cursor(1, 1);
+
   for (int i = 0; i < PASSWORD_LENGTH; i++)
   {
-    lcd_show_cursor(1, 1);
     char key;
     while (1)
     {
