@@ -43,5 +43,5 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 
 #### Tiempo (Mateo)
 - [x] Hora andando
-- [ ] Guardar la hora en la eeprom
+- [ ] Guardar la hora en la eeprom para cuando se apaga el dispositivo seguir al volverlo a encender
 
