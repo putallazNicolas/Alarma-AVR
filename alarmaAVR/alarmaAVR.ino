@@ -49,7 +49,15 @@ void setup()
 void loop()
 {
   key = customKeypad.getKey();
+  mode = 1;
   checkSensors();
+  checkState();
+  lcd_clear();
+  lcd_write("Estado: ");
+  lcd_write_char(state + 48); // El +48 es por que al estar imprimiendo un numero el codigo ascii lo toma como char e imprime NULL si es 0, entonces le sumo 48 (0 en ascii)
+  lcd_set_cursor(0, 1);
+  lcd_write("Modo: ");
+  lcd_write_char(mode + 48);
   
   if (key)
   {
@@ -57,15 +65,68 @@ void loop()
   }
 }
 
-int checkSensors()
+void checkSensors() //0 Desactivada, 1 Perimetral, 2 Total
 {
-  
+  // Chequear estado sensores
+  uint8_t perimetralState = PINB & (1 << sensorPerimetral);
+  uint8_t internoState = PINB & (1 << sensorInterno);
+
+  if (mode == 0)
+  {
+    return;
+  }
+  else if (mode == 1)
+  {
+    if (perimetralState)
+    {
+      state = 1;
+    }
+  }
+  else if (mode == 2)
+  {
+    if (perimetralState || internoState)
+    {
+      state = 1;
+    }
+  }
+}
+
+void checkState()
+{
+  if (state)
+  {
+    PORTC |= (1 << alarma);
+  }
+  else
+  {
+    PORTC &= ~(1 << alarma);
+  }
+}
+
+void desactivarAlarma()
+{
+  if (state == 0)
+  {
+    return;
+  }
+  else
+  {
+    state = 0;
+  }
 }
 
 void setupSensores()
 {
-  DDRB |= (1 << sensorPerimetral);
-  DDRB |= (1 << sensorInterno);
+  // Configurar como entradas
+  DDRB &= ~(1 << sensorPerimetral);
+  DDRB &= ~(1 << sensorInterno);
+
+  // Configurar sin pullup
+  PORTB &= ~(1 << sensorPerimetral);
+  PORTB &= ~(1 << sensorInterno);
+
+  //Buzzer como salida
+  DDRC |= (1 << alarma);
 }
 
 void lcd_enable_pulse()
