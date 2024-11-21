@@ -31,6 +31,7 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 #### Configuración
 - [x] Usuarios (Mateo)
 - [x] Claves de usuario (Mateo)
+- [ ] Guardar distintas claves de usuario en la eeprom.
 - [x] Activar y desactivar distintas alarmas (Pedir clave) (Nico)
 - [ ] Hora (Mateo)
 
@@ -38,8 +39,9 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 - [x] Activa buzzer
 - [x] Se apaga la sirena si ponen bien la clave
 - [ ] Guarda quien Desactivo la alarma
-- [ ] Guarda a que hora se activo
+- [ ] Guarda a que hora se activo (historial)
 
 #### Tiempo (Mateo)
 - [x] Hora andando
+- [ ] Guardar la hora en la eeprom
 
