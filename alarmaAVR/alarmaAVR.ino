@@ -130,8 +130,29 @@ void configurePasswords()
     lcd_write_char(keyB);
     input[i] = keyB;
   }
+  lcd_show_cursor(0, 0);
 
-  passwords[key] = input;
+  if (key == '0')
+  {
+    for (int i = 0; i < PASSWORD_LENGTH; i++)
+    {
+      passwords[0][i] = input[i];
+    }
+  }
+  if (key == '1')
+  {
+    for (int i = 0; i < PASSWORD_LENGTH; i++)
+    {
+      passwords[1][i] = input[i];
+    }
+  }
+  if (key == '2')
+  {
+    for (int i = 0; i < PASSWORD_LENGTH; i++)
+    {
+      passwords[2][i] = input[i];
+    }
+  }
 
   return;
 }
