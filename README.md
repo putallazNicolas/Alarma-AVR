@@ -1,5 +1,5 @@
 # Alarma AVR
-TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digital lII (2024)
+TP Integrador con Mateo Josué Torres para Aplicaciones de la Electrónica Digital III (2024)
 
 ### Objetivo 
 
