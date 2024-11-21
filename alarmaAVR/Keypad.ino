@@ -21,6 +21,7 @@ char checkKeypad()
     }
     PORTC = 0b000000;
   }
+  prevKey = '\0';
   return '\0';
 }
 

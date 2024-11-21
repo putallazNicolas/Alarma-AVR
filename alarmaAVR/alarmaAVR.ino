@@ -77,10 +77,12 @@ int main(void)
       if (key > '0' && key < '9')
       {
         deactivateAlarm();
+        //updateScreen();
       }
       else if (key == 'A')
       {
         configureMode();
+        updateScreen();
       }
       else if (key == 'C')
       {
@@ -91,14 +93,4 @@ int main(void)
   }
 }
 
-// sensors.ino
-
-// alarm.ino
-
-// LCD1602.ino
-
-//keypad.ino
-
-//Time.ino
-
-
+// Aca abajo van las funciones de los otros archivos para subir a tinkercad
