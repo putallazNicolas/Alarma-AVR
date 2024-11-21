@@ -1,12 +1,3 @@
-struct hour
-{
-  int hrs;
-  int min;
-  int sec;
-};
-
-struct hour time = {0, 0, 0};
-
 void tiempoDeclare()
 {
   TCCR1B = (1 << WGM12) | (1 << CS12) | (1 << CS10);
