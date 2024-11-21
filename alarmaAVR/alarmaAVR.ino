@@ -1,3 +1,13 @@
+// alarmaAVR.ino (main)
+
+#include <avr/eeprom.h>
+/*
+FUNCIONES DE EEPROM PARA COPIAR Y PEGAR (no borrar "(uint8_t*)"):
+
+eeprom_read_byte((uint8_t*)direccion);
+eeprom_write_byte((uint8_t*)direccion, valor); 
+*/
+
 //Cosas del LCD
 #define F_CPU 8000000
 
@@ -42,7 +52,6 @@ struct hour
 };
 
 struct hour time = {0, 0, 0};
-
 
 int main(void)
 {
