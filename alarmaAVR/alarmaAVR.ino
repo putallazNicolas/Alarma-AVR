@@ -37,7 +37,7 @@ struct hour
 
 struct hour time = {0, 0, 0};
 
-void setup()
+int main(void)
 {
   tiempoDeclare();
 
@@ -50,25 +50,25 @@ void setup()
   updateScreen();
 
   Serial.begin(9600);
-}
   
-void loop()
-{
-  key = checkKeypad();
-
-  checkSensors();
-  checkState();
-
-  uint8_t changed = checkChanges();
-
-  if (changed)
+  while(1)
   {
-    updateScreen();
-  }
+    key = checkKeypad();
+
+    checkSensors();
+    checkState();
+
+    uint8_t changed = checkChanges();
+
+    if (changed)
+    {
+      updateScreen();
+    }
   
-  if (key)
-  {
-    deactivateAlarm();
+    if (key)
+    {
+      deactivateAlarm();
+    }
   }
 }
 
@@ -164,17 +164,12 @@ void deactivateAlarm()
   }
   else
   {
-    askPassword(1);
+    askPassword();
   }
 }
 
-void askPassword(int attempt)
+void askPassword()
 {
-  if (attempt > 3)
-  {
-    return;
-  }
-
   lcd_clear();
   lcd_set_cursor(0, 0);
   lcd_write("Contrasenia:");
@@ -198,7 +193,6 @@ void askPassword(int attempt)
     input[i] = key;
   }
 
-  Serial.println(input);
   uint8_t isCorrect = checkPassword(input);
 
   if (isCorrect)
@@ -209,7 +203,7 @@ void askPassword(int attempt)
   }
   else
   {
-    askPassword(attempt + 1);
+    askPassword();
   }
 }
 
@@ -225,7 +219,7 @@ uint8_t checkPassword(char *input) // Estaria bueno implementar un hasheo
   return 0;
 }
 
-int strCompare(char *string1, char *string2, int length) // ERA LA CLAVE HACERLO MANUAL
+int strCompare(char *string1, char *string2, int length) // ERA LA CLAVE HACERLO MANUAL, NO ANDA USANDO strcmp DE LA LIBRERIA string.h
 {
   for (int i = 0; i < length; i++)
   {
