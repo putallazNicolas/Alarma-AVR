@@ -51,6 +51,8 @@ void setup()
   lcd_show_cursor(0, 0);
 
   setupSensors();
+
+  updateScreen();
 }
   
 void loop()
@@ -165,12 +167,18 @@ void deactivateAlarm()
   }
   else
   {
-    askPassword();
+    askPassword(1);
   }
 }
 
-void askPassword()
+void askPassword(int attempt)
 {
+  if (attempt > 3)
+  {
+    return;
+  }
+  
+  lcd_clear();
   lcd_set_cursor(0, 0);
   lcd_write("Contrasenia:");
   lcd_set_cursor(0, 1);
@@ -201,11 +209,15 @@ void askPassword()
     lcd_show_cursor(0, 0);
     state = 0;
   }
+  else
+  {
+    askPassword(attempt + 1);
+  }
 }
 
 uint8_t checkPassword(char *input)
 {
-  return 1;
+  return 0;
 }
 
 void setupSensors()
