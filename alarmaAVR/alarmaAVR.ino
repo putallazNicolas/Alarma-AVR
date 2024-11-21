@@ -42,19 +42,30 @@ char *passwords[USERS] = {"1234", "1234", "1234"};
 uint8_t mode = 2; //0 Desactivada, 1 Perimetral, 2 Total
 uint8_t state = 0; //0 Sonido apagado, 1 Sonando
 
+uint8_t prevMode = 2; //0 Desactivada, 1 Perimetral, 2 Total
+uint8_t prevState = 0; //0 Sonido apagado, 1 Sonando
+
 void setup()
 {
   lcd_init();
   lcd_show_cursor(0, 0);
 
-  setupSensors()
+  setupSensors();
 }
   
 void loop()
 {
   key = customKeypad.getKey();
+
   checkSensors();
   checkState();
+
+  uint8_t changed = checkChanges();
+
+  if (changed)
+  {
+    updateScreen();
+  }
   
   if (key)
   {
@@ -100,6 +111,21 @@ void checkState()
   }
 }
 
+uint8_t checkChanges()
+{
+  if (state != prevState)
+  {
+    return 1;
+  }
+  
+  if (mode != prevMode)
+  {
+    return 1;
+  }
+
+  return 0;
+}
+
 void deactivateAlarm()
 {
   if (state == 0)
@@ -117,21 +143,38 @@ void askPassword()
   lcd_set_cursor(0, 0);
   lcd_write("Contrasenia:");
   lcd_set_cursor(0, 1);
-  
+
   char input[PASSWORD_LENGTH];
 
   for (int i = 0; i < PASSWORD_LENGTH; i++)
   {
     lcd_show_cursor(1, 1);
     char key;
-    while (!key)
+    while (1)
     {
       key = customKeypad.getKey();
+      if (key)
+      {
+        break;
+      }
     }
+    lcd_write_char(key);
     input[i] = key;
   }
 
+  uint8_t isCorrect = checkPassword(input);
 
+  if (isCorrect)
+  {
+    lcd_clear();
+    lcd_show_cursor(0, 0);
+    state = 0;
+  }
+}
+
+uint8_t checkPassword(char *input)
+{
+  return 1;
 }
 
 void setupSensors()
@@ -147,6 +190,8 @@ void setupSensors()
   //Buzzer como salida
   DDRC |= (1 << alarma);
 }
+
+// LCD1602.ino
 
 void lcd_enable_pulse()
 {
