@@ -19,7 +19,7 @@
 char key; // NO BORRAR AL CAMBIAR A AVR
 
 // Una contrasena por usuario
-char *passwords[USERS] = {"1234", "1234", "1234"};
+char *passwords[USERS] = {"1234\0", "1234\0", "1234\0"};
 
 // Configuraciones y estados de alarma
 uint8_t mode = 2; //0 Desactivada, 1 Perimetral, 2 Total
@@ -48,6 +48,8 @@ void setup()
   setupKeypad();
 
   updateScreen();
+
+  Serial.begin(9600);
 }
   
 void loop()
@@ -196,6 +198,7 @@ void askPassword(int attempt)
     input[i] = key;
   }
 
+  Serial.println(input);
   uint8_t isCorrect = checkPassword(input);
 
   if (isCorrect)
@@ -210,9 +213,28 @@ void askPassword(int attempt)
   }
 }
 
-uint8_t checkPassword(char *input)
+uint8_t checkPassword(char *input) // Estaria bueno implementar un hasheo
 {
+  for (int i = 0; i < USERS; i++)
+  {
+    if(strCompare(input, passwords[i], PASSWORD_LENGTH))
+    {
+      return 1;
+    }
+  }
   return 0;
+}
+
+int strCompare(char *string1, char *string2, int length)
+{
+  for (int i = 0; i < length; i++)
+  {
+    if (string1[i] != string2[i])
+    {
+      return 0;
+    }
+  }
+  return 1;
 }
 
 void setupSensors()
@@ -425,7 +447,7 @@ char keys[4][4] =
   { '1', '2', '3', 'A' },
   { '4', '5', '6', 'B' },
   { '7', '8', '9', 'C' },
-  { '#', '0', '*', 'D' }
+  { '*', '0', '#', 'D' }
 };
 
 char checkKeypad()
