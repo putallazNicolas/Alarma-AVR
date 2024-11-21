@@ -19,7 +19,7 @@
 char key; // NO BORRAR AL CAMBIAR A AVR
 
 // Una contrasena por usuario
-char *passwords[USERS] = {"1234\0", "1234\0", "1234\0"};
+char *passwords[USERS] = {"1234", "5678", "0812"}; // En realidad habria que implementar un sistema de hasheo...
 
 // Configuraciones y estados de alarma
 uint8_t mode = 2; //0 Desactivada, 1 Perimetral, 2 Total
