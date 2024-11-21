@@ -225,7 +225,7 @@ uint8_t checkPassword(char *input) // Estaria bueno implementar un hasheo
   return 0;
 }
 
-int strCompare(char *string1, char *string2, int length)
+int strCompare(char *string1, char *string2, int length) // ERA LA CLAVE HACERLO MANUAL
 {
   for (int i = 0; i < length; i++)
   {
