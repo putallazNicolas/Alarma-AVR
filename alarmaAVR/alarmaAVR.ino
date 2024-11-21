@@ -68,8 +68,28 @@ int main(void)
     if (key)
     {
       deactivateAlarm();
+      if (key == 'a')
+      {
+        configureMode();
+      }
     }
   }
+}
+
+// sensors.ino
+
+void setupSensors()
+{
+  // Configurar como entradas
+  DDRB &= ~(1 << sensorPerimetral);
+  DDRB &= ~(1 << sensorInterno);
+
+  // Configurar sin pullup
+  PORTB &= ~(1 << sensorPerimetral);
+  PORTB &= ~(1 << sensorInterno);
+
+  //Buzzer como salida
+  DDRC |= (1 << alarma);
 }
 
 void checkSensors() //0 Desactivada, 1 Perimetral, 2 Total
@@ -156,6 +176,8 @@ void updateScreen()
   }
 }
 
+// alarm.ino
+
 void deactivateAlarm()
 {
   if (state == 0)
@@ -229,20 +251,6 @@ int strCompare(char *string1, char *string2, int length) // ERA LA CLAVE HACERLO
     }
   }
   return 1;
-}
-
-void setupSensors()
-{
-  // Configurar como entradas
-  DDRB &= ~(1 << sensorPerimetral);
-  DDRB &= ~(1 << sensorInterno);
-
-  // Configurar sin pullup
-  PORTB &= ~(1 << sensorPerimetral);
-  PORTB &= ~(1 << sensorInterno);
-
-  //Buzzer como salida
-  DDRC |= (1 << alarma);
 }
 
 // LCD1602.ino
