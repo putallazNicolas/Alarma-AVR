@@ -12,7 +12,7 @@ char checkKeypad()
 {
   for (int r = 0; r < 4; r++)
   {
-    PORTB = ~(1 << r);
+    PORTC = ~(1 << r);
     for (int c = 4; c < 8; c++)
     {
       if (!(PIND & (1 << c)))
@@ -21,16 +21,16 @@ char checkKeypad()
         return keyss;
       }
     }
-    PORTB = 0b000000;
+    PORTC = 0b000000;
   }
   return '\0';
 }
 
 void setupKeypad()
 {
-  DDRB = 0b001111;
+  DDRC = 0b001111;
   DDRD = 0b00000000;
-  PORTB = 0b111111;
+  PORTC = 0b111111;
   PORTD = 0b11110000;
 }
 
