@@ -78,8 +78,62 @@ int main(void)
       {
         configureMode();
       }
+      else if (key == 'C')
+      {
+        configurePasswords();
+        updateScreen();
+      }
     }
   }
+}
+
+void configurePasswords()
+{
+  lcd_clear();
+  lcd_write("Que usuario sos?");
+
+  char key;
+  while (1)
+  {
+    key = checkKeypad();
+    if (key)
+    {
+      break;
+    }
+  }
+
+  if (key == '1' || key == '2' || key == '3')
+  {
+    askPassword();
+  }
+
+  key -= 48; // Trato al char como un int
+
+  lcd_clear();
+  lcd_write("Nueva Contrasena");
+  lcd_set_cursor(0, 1);
+
+  char input[PASSWORD_LENGTH];
+
+  for (int i = 0; i < PASSWORD_LENGTH; i++)
+  {
+    lcd_show_cursor(1, 1);
+    char keyB;
+    while (1)
+    {
+      keyB = checkKeypad();
+      if (keyB)
+      {
+        break;
+      }
+    }
+    lcd_write_char(keyB);
+    input[i] = keyB;
+  }
+
+  passwords[key] = input;
+
+  return;
 }
 
 // sensors.ino
