@@ -1,3 +1,5 @@
+// LCD1602_tomi.ino
+
 void lcd_enable_pulse()
 {
   PORTB &= ~(1<<e);

@@ -1,3 +1,5 @@
+// alarm.ino
+
 void configureMode() //0 Desactivada, 1 Perimetral, 2 Total
 {
   lcd_clear();

@@ -1,3 +1,5 @@
+//sensors.ino
+
 void setupSensors()
 {
   // Configurar como entradas

@@ -1,3 +1,5 @@
+// Time.ino
+
 void tiempoDeclare()
 {
   TCCR1B = (1 << WGM12) | (1 << CS12) | (1 << CS10);
