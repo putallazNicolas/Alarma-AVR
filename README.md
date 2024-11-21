@@ -11,19 +11,21 @@ Desarrollar un sistema de alarma aplicando los conocimientos adquiridos.
 - [x] LCD (Nico)
 - [ ] DHT11 (Nico)
 - [x] Keypad (Matuto)
-- [ ] Buzzer (Nico) piupiupiupiu
-- [ ] Sensor Perimetral (Botones) (Mateo)
+- [x] Buzzer básico (1 o 0) (Nico)
+- [ ] Buzzer Avanzado (Nico)
+- [x] Sensores (Botones) (Mateo)
 
 #### Configuración
-- [ ] Usuarios (Mateo)
-- [ ] Claves de usuario (Mateo)
-- [ ] Activar y desactivar distintas alarmas (Pedir clave) (Nico)
+- [x] Usuarios (Mateo)
+- [x] Claves de usuario (Mateo)
+- [x] Activar y desactivar distintas alarmas (Pedir clave) (Nico)
 - [ ] Hora (Mateo)
 
 #### Llamado de alarma
-- [ ] Activa buzzer 10s
+- [x] Activa buzzer
+- [x] Se apaga la sirena si ponen bien la clave
 - [ ] Guarda quien Desactivo la alarma
-- [ ] Guarda quien la activo y a que hora
+- [ ] Guarda a que hora se activo
 
 #### Tiempo (Mateo)
 - [x] Hora andando
